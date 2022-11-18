@@ -1,5 +1,19 @@
 import sys
 import requests
+import logging
+import logging.handlers
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+loggerFileHandler = logging.handlers.RotatingFileHandler(
+    "status.log",
+    maxBytes=1024*1024,
+    backupCount=1,
+    encoding="utf-8",
+)
+fmt = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+loggerFileHandler.setFormatter(fmt)
+logger.addHandler(loggerFileHandler)
 
 def getUnits() -> str:
     url = "https://www.commonwealthlanding.com/CmsSiteManager/callback.aspx?act=Proxy/GetUnits&available=true&honordisplayorder=true&siteid=4460382&leaseterm=12&dateneeded=2022-11-17&callback=jQuery22408679066000885238_1668731524273&_=1668731524274"
@@ -35,15 +49,15 @@ def main():
     try:
         units = getUnits()
     except Exception as e:
-        print(e)
+        logger.error(e)
         sys.exit(1)
 
     try:
         units = parseUnits(units)
     except Exception as e:
-        print(e)
+        logger.error(e)
         sys.exit(1)
-    print(units)
+    logger.info(units)
 
 if __name__ == "__main__":
     main()
