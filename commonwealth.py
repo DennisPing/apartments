@@ -16,7 +16,7 @@ loggerFileHandler.setFormatter(fmt)
 logger.addHandler(loggerFileHandler)
 
 def getUnits() -> str:
-    url = "https://www.commonwealthlanding.com/CmsSiteManager/callback.aspx?act=Proxy/GetUnits&available=true&honordisplayorder=true&siteid=4460382&leaseterm=12&dateneeded=2022-11-17&callback=jQuery22408679066000885238_1668731524273&_=1668731524274"
+    url = "https://www.commonwealthlanding.com/CmsSiteManager/callback.aspx?act=Proxy/GetUnits&available=true&honordisplayorder=true&siteid=4460382&leaseterm=12&dateneeded=2023-01-03&callback=jQuery224007571119365756718_1668786545046&_=1668786545050"
     headers = {
         "authority": "www.commonwealthlanding.com",
         "method": "GET",
