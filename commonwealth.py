@@ -1,0 +1,49 @@
+import sys
+import requests
+
+def getUnits() -> str:
+    url = "https://www.commonwealthlanding.com/CmsSiteManager/callback.aspx?act=Proxy/GetUnits&available=true&honordisplayorder=true&siteid=4460382&leaseterm=12&dateneeded=2022-11-17&callback=jQuery22408679066000885238_1668731524273&_=1668731524274"
+    headers = {
+        "authority": "www.commonwealthlanding.com",
+        "method": "GET",
+        "accept": "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "en-US,en;q=0.9",
+        "referer": "https://www.commonwealthlanding.com/",
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+    }
+    try:
+        resp = requests.request("GET", url, headers=headers)
+        resp.raise_for_status()
+    except:
+        raise Exception(f"Error getUnits(): {resp.status_code}: {resp.reason}")
+    return resp.text
+
+def parseUnits(units: str) -> str:
+    """
+    Get only the JSON part of the response as a string
+    """
+    start = units.find("{")
+    end = units.rfind("}")
+    if start == -1 or end == -1:
+        raise Exception("Error parseUnits(): No JSON found")
+    units = units[start:end+1]
+    return units
+
+def main():
+    units = ""
+    try:
+        units = getUnits()
+    except Exception as e:
+        print(e)
+        sys.exit(1)
+
+    try:
+        units = parseUnits(units)
+    except Exception as e:
+        print(e)
+        sys.exit(1)
+    print(units)
+
+if __name__ == "__main__":
+    main()
