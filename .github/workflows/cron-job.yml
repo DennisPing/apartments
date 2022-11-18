@@ -2,7 +2,7 @@ name: Run cron job
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '15 11,17 * * *' # Run at 11:15am and 5:15pm
 
 jobs:
   build:
