@@ -1,8 +1,10 @@
 name: Run cron job
 
 on:
-  schedule:
-    - cron: '15 16,22 * * *' # Run at 11:15am and 5:15pm
+  push:
+    branches: [ "main" ]
+#   schedule:
+#     - cron: '15 16,22 * * *' # Run at 11:15am and 5:15pm
 
 jobs:
   build:
